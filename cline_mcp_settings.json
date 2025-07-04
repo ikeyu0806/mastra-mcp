@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "github.com/github/github-mcp-server": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
