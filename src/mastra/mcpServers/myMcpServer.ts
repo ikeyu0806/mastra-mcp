@@ -1,6 +1,4 @@
 import { MCPServer } from '@mastra/mcp'
-// import { Agent } from '@mastra/core/agent'
-import { openai } from '@ai-sdk/openai'
 import { weatherTool } from '../tools/weather-tool'
 import { weatherAgent } from '../agents/weather-agent'
 
