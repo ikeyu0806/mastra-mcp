@@ -12,6 +12,7 @@ services:
     environment:
       # コンテナ間の接続にはホスト名（localhost）ではなく、サービス名（postgresql）を使用
       - POSTGRES_CODING_ANTIPATTERN_CONNECTION=postgresql://user:password@postgresql:5432/coding_antipattern_vectordb
+    env_file: .env
     depends_on:
       - postgresql
     command: "npm run dev"
