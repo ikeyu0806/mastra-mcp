@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  mastra:
+    build:
+      context: .
+      dockerfile: docker/mastra/Dockerfile
+    image: mastra-app
+    container_name: mastra-app
+    ports:
+      - '4333:4111'
+    environment:
+      # コンテナ間の接続にはホスト名（localhost）ではなく、サービス名（postgresql）を使用
+      - POSTGRES_CONNECTION_STRING=postgresql://user:password@postgresql:5432/coding_antipattern_vectordb
+    depends_on:
+      - postgresql
+    volumes:
+      - ./:/app
+      - node_modules:/app/node_modules
+  postgresql:
+    build:
+      context: .
+      dockerfile: docker/postgresql/Dockerfile
+    image: pgvector-db
+    container_name: pgvector-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: coding_antipattern_vectordb
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+  node_modules:
