@@ -108,7 +108,7 @@ Setter/Getter地獄（ロジックのないデータクラス）
   })
 
   const pgVector = new PgVector({
-    connectionString: process.env.POSTGRES_CONNECTION_STRING as string
+    connectionString: process.env.POSTGRES_CODING_ANTIPATTERN_CONNECTION as string
   })
 
   console.log('✅ embeddings:', embeddings)
