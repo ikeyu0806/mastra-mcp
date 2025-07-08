@@ -1,10 +1,9 @@
 import { MCPServer } from '@mastra/mcp'
-import { weatherTool } from '../tools/weather-tool'
-import { weatherAgent } from '../agents/weather-agent'
+import { codingAntiPatternRagTool } from '../tools/codingAntiPatternRagTool'
+import { tableDesignAntiPatternRagTool } from '../tools/tableDesignAntiPatternRagTool'
 
 export const myMcpServer = new MCPServer({
   name: 'My Custom Server',
   version: '1.0.0',
-  tools: { weatherTool },
-  agents: { weatherAgent },
+  tools: { codingAntiPatternRagTool, tableDesignAntiPatternRagTool },
 })
