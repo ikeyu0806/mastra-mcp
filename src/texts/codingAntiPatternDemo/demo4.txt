@@ -1,0 +1,9 @@
+function handle(input: any) {
+  if (input) {
+    if (input.user) {
+      if (input.user.isActive) {
+        console.log('User is active');
+      }
+    }
+  }
+}

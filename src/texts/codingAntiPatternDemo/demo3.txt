@@ -1,0 +1,2 @@
+const user = getUser() as any;
+console.log((user as any).name.toUpperCase());

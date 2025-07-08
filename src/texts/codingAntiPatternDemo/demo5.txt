@@ -1,0 +1,9 @@
+let currentUser: any;
+
+function login(user: any) {
+  currentUser = user;
+}
+
+function getProfile() {
+  return currentUser.profile;
+}
