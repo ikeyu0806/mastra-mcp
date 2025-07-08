@@ -3,9 +3,14 @@ import { MCPClient } from '@mastra/mcp'
 // MCPClientを設定してサーバーに接続
 export const mcpClient = new MCPClient({
   servers: {
-    'desktop-commander': {
+    postgres: {
       command: 'npx',
-      args: ['-y', '@wonderwhy-er/desktop-commander'],
+      args: [
+        '-y',
+        '@modelcontextprotocol/server-postgres',
+        process.env.POSTGRES_CONNECTION_STRING ||
+          'postgresql://user:password@postgresql:5432/vectordb',
+      ],
     },
   },
 })
