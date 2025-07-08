@@ -10,16 +10,16 @@ http://localhost:4111/agents
 d exec -it mastra-mcp bash
 
 # プログラミングアンチパターンベクトルDB更新
-npx ts-node src/scripts/updateAntiPatternCodingEmbedding.ts
+docker compose run --rm npx ts-node src/scripts/updateAntiPatternCodingEmbedding.ts
 
 # プログラミングアンチパターンベクトルDBへのクエリ
-npx ts-node src/scripts/antiPatternCodingQuery.ts
+docker compose run --rm npx ts-node src/scripts/antiPatternCodingQuery.ts
 
 # データベース設計アンチパターンDB更新
-npx ts-node src/scripts/updateAntiPatternTableDesignEmbedding.ts
+docker compose run --rm mastra npx ts-node src/scripts/updateAntiPatternTableDesignEmbedding.ts
 
 # データベース設計アンチパターンベクトルDBへのクエリ
-npx ts-node src/scripts/antiPatternTableDesignQuery.ts
+docker compose run --rm npx ts-node src/scripts/antiPatternTableDesignQuery.ts
 ```
 
 ## Postgresql
