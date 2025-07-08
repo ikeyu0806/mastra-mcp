@@ -1,0 +1,19 @@
+function processOrder(order: any) {
+  // 入力バリデーション
+  if (!order.user || !order.items || order.items.length === 0) {
+    throw new Error('Invalid order');
+  }
+
+  // 在庫チェック
+  for (const item of order.items) {
+    if (!checkStock(item)) {
+      throw new Error(`Out of stock: ${item.name}`);
+    }
+  }
+
+  // 決済処理
+  chargeUser(order.user, order.total);
+
+  // メール送信
+  sendConfirmationEmail(order.user.email);
+}
