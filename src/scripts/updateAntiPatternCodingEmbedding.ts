@@ -97,35 +97,37 @@ Setter/Getter地獄（ロジックのないデータクラス）
 | TODOコメントの放置 | 実装予定なのにずっと未対応になる                  |
 | 無駄な最適化      | 速度が求められない部分に過剰なロジック               |
 | デバッグ出力の残存   | print() や console.log() の消し忘れ |
-`
-  )
+`)
 
   const chunks = await doc.chunk()
 
   const { embeddings } = await embedMany({
-    values: chunks.map(chunk => chunk.text),
-    model: openai.embedding('text-embedding-3-small')
+    values: chunks.map((chunk) => chunk.text),
+    model: openai.embedding('text-embedding-3-small'),
   })
 
   const pgVector = new PgVector({
-    connectionString: process.env.POSTGRES_CONNECTION_STRING as string
+    connectionString: process.env.POSTGRES_CONNECTION_STRING as string,
   })
 
   console.log('✅ embeddings:', embeddings)
-  console.log('✅ connectionString:', process.env.POSTGRES_CONNECTION_STRING || 'not set')
+  console.log(
+    '✅ connectionString:',
+    process.env.POSTGRES_CONNECTION_STRING || 'not set',
+  )
 
   try {
     await pgVector.createIndex({
       indexName: 'coding_antipattern_embeddings',
-      dimension: 1536
+      dimension: 1536,
     })
 
     await pgVector.upsert({
       indexName: 'coding_antipattern_embeddings',
       vectors: embeddings,
-      metadata: chunks.map(chunk => ({
-        text: chunk.text
-      }))
+      metadata: chunks.map((chunk) => ({
+        text: chunk.text,
+      })),
     })
 
     console.log('✅ Embeddings inserted successfully')
@@ -134,7 +136,7 @@ Setter/Getter地獄（ロジックのないデータクラス）
   }
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('❌ Error:', err)
   process.exit(1)
 })

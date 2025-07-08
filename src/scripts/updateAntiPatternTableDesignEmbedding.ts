@@ -5,7 +5,7 @@ import { PgVector } from '@mastra/pg'
 import { MDocument } from '@mastra/rag'
 
 async function main() {
-const doc = MDocument.fromText(`
+  const doc = MDocument.fromText(`
 SQLアンチパターン（SQL Anti-patterns）とは、一見正しく動作するように見えても、長期的に見ると保守性・拡張性・パフォーマンス・データ整合性に悪影響を及ぼすようなデータベース設計やクエリの書き方を指します。
 
 以下に代表的なアンチパターンとその問題点、代替策をまとめます。
@@ -118,29 +118,32 @@ SQLアンチパターンを避けるには、スキーマ設計時に正規化�
   const chunks = await doc.chunk()
 
   const { embeddings } = await embedMany({
-    values: chunks.map(chunk => chunk.text),
-    model: openai.embedding('text-embedding-3-small')
+    values: chunks.map((chunk) => chunk.text),
+    model: openai.embedding('text-embedding-3-small'),
   })
 
   const pgVector = new PgVector({
-    connectionString: process.env.POSTGRES_CONNECTION_STRING as string
+    connectionString: process.env.POSTGRES_CONNECTION_STRING as string,
   })
 
   console.log('✅ embeddings:', embeddings)
-  console.log('✅ connectionString:', process.env.POSTGRES_CONNECTION_STRING || 'not set')
+  console.log(
+    '✅ connectionString:',
+    process.env.POSTGRES_CONNECTION_STRING || 'not set',
+  )
 
   try {
     await pgVector.createIndex({
       indexName: 'db_design_antipattern_embeddings',
-      dimension: 1536
+      dimension: 1536,
     })
 
     await pgVector.upsert({
       indexName: 'db_design_antipattern_embeddings',
       vectors: embeddings,
-      metadata: chunks.map(chunk => ({
-        text: chunk.text
-      }))
+      metadata: chunks.map((chunk) => ({
+        text: chunk.text,
+      })),
     })
 
     console.log('✅ Embeddings inserted successfully')
@@ -149,7 +152,7 @@ SQLアンチパターンを避けるには、スキーマ設計時に正規化�
   }
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error('❌ Error:', err)
   process.exit(1)
 })

@@ -9,7 +9,11 @@ import { myMcpServer } from './mcpServers/myMcpServer'
 
 export const mastra = new Mastra({
   workflows: { weatherWorkflow },
-  agents: { weatherAgent, codingAntiPatternRagAgent, tableDesignAntiPatternRagAgent },
+  agents: {
+    weatherAgent,
+    codingAntiPatternRagAgent,
+    tableDesignAntiPatternRagAgent,
+  },
   storage: new LibSQLStore({
     // stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
     url: ':memory:',

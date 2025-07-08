@@ -1,9 +1,11 @@
 エージェント一覧
+
 ```
 http://localhost:4111/agents
 ```
 
 スクリプト
+
 ```
 d exec -it mastra-mcp bash
 
@@ -23,6 +25,7 @@ npx ts-node src/scripts/antiPatternTableDesignQuery.ts
 Postgresql
 
 データベース一覧表示
+
 ```
 \l
 ```

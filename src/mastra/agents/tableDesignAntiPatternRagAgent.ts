@@ -14,5 +14,5 @@ export const tableDesignAntiPatternRagAgent = new Agent({
     ユーザーの質問に対して、できるだけ具体的で明確な回答を提供してください。
   `,
   tools: { tableDesignAntiPatternRagTool },
-  model: openai('gpt-4o-mini')
+  model: openai('gpt-4o-mini'),
 })

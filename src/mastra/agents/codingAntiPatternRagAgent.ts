@@ -14,5 +14,5 @@ export const codingAntiPatternRagAgent = new Agent({
     ユーザーの質問に対して、できるだけ具体的で明確な回答を提供してください。
   `,
   tools: { codingAntiPatternRagTool },
-  model: openai('gpt-4o-mini')
+  model: openai('gpt-4o-mini'),
 })
