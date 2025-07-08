@@ -19,3 +19,10 @@ npx ts-node src/scripts/updateAntiPatternTableDesignEmbedding.ts
 # データベース設計アンチパターンベクトルDBへのクエリ
 npx ts-node src/scripts/antiPatternTableDesignQuery.ts
 ```
+
+Postgresql
+
+データベース一覧表示
+```
+\l
+```

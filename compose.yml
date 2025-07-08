@@ -11,8 +11,7 @@ services:
       - '4111:4111'
     environment:
       # コンテナ間の接続にはホスト名（localhost）ではなく、サービス名（postgresql）を使用
-      - POSTGRES_CODING_ANTIPATTERN_CONNECTION=postgresql://user:password@postgresql:5432/coding_antipattern_vectordb
-      - POSTGRES_TABLE_DESIGN_ANTIPATTERN_CONNECTION=postgresql://user:password@postgresql:5432/table_design_antipattern_vectordb
+      - POSTGRES_CONNECTION_STRING=postgresql://user:password@postgresql:5432/vectordb
     env_file: .env
     depends_on:
       - postgresql
@@ -29,7 +28,7 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: coding_antipattern_vectordb
+      POSTGRES_DB: vectordb
     ports:
       - '5432:5432'
     volumes:

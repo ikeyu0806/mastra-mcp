@@ -9,7 +9,7 @@ async function main() {
   let input = '命名に関するアンチパターンについて教えて' // デフォルトの入力値を設定
 
   const pgVector = new PgVector({
-    connectionString: process.env.POSTGRES_CODING_ANTIPATTERN_CONNECTION as string
+    connectionString: process.env.POSTGRES_CONNECTION_STRING as string
   })
   const { embedding } = await embed({
     model: openai.embedding('text-embedding-3-small'),
@@ -17,7 +17,7 @@ async function main() {
   })
 
   const results = await pgVector.query({
-    indexName: 'embeddings',
+    indexName: 'coding_antipattern_embeddings',
     queryVector: embedding,
     topK: 3
   })

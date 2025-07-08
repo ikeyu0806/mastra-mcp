@@ -108,20 +108,20 @@ Setter/Getter地獄（ロジックのないデータクラス）
   })
 
   const pgVector = new PgVector({
-    connectionString: process.env.POSTGRES_CODING_ANTIPATTERN_CONNECTION as string
+    connectionString: process.env.POSTGRES_CONNECTION_STRING as string
   })
 
   console.log('✅ embeddings:', embeddings)
-  console.log('✅ connectionString:', process.env.POSTGRES_CODING_ANTIPATTERN_CONNECTION || 'not set')
+  console.log('✅ connectionString:', process.env.POSTGRES_CONNECTION_STRING || 'not set')
 
   try {
     await pgVector.createIndex({
-      indexName: 'embeddings',
+      indexName: 'coding_antipattern_embeddings',
       dimension: 1536
     })
 
     await pgVector.upsert({
-      indexName: 'embeddings',
+      indexName: 'coding_antipattern_embeddings',
       vectors: embeddings,
       metadata: chunks.map(chunk => ({
         text: chunk.text
