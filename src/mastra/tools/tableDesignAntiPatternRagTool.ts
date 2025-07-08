@@ -4,12 +4,12 @@ import { PgVector } from '@mastra/pg'
 import { openai } from '@ai-sdk/openai'
 import { embed } from 'ai'
 
-export const codingAntiPatternRagTool = createTool({
+export const tableDesignAntiPatternRagTool = createTool({
   id: 'Get Anti Coding Pattern Information',
   inputSchema: z.object({
     query: z.string()
   }),
-  description: `Fetches the Anti Coding Pattern information from the vector database based on the user's query.`,
+  description: `Fetches the Table Design Anti Pattern information from the vector database based on the user's query.`,
   execute: async ({ context }) => {
     const pgVector = new PgVector({
       connectionString: process.env.POSTGRES_CONNECTION_STRING as string
@@ -21,7 +21,7 @@ export const codingAntiPatternRagTool = createTool({
     })
 
     const results = await pgVector.query({
-      indexName: 'coding_antipattern_embeddings',
+      indexName: 'db_design_antipattern_embeddings',
       queryVector: embedding,
       topK: 3
     })
