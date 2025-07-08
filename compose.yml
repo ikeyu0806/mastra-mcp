@@ -16,6 +16,7 @@ services:
     depends_on:
       - postgresql
     command: "npm run dev"
+    # command: "tail -f /dev/null" # デバッグ用
     volumes:
       - ./:/app
       - mcp_node_modules:/app/node_modules
