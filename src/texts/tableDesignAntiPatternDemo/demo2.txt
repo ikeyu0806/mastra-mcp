@@ -1,0 +1,5 @@
+CREATE TABLE attributes (
+    entity_id INT,
+    attribute_name VARCHAR(255),
+    attribute_value TEXT
+);
