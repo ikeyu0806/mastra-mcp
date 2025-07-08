@@ -1,0 +1,10 @@
+CREATE TABLE transactions (
+    id INT PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+    refund_reason VARCHAR(255),
+    shipment_tracking_number VARCHAR(255),
+    review_score INT,
+    payment_method VARCHAR(50)
+    -- 多くのカラムがNULLになる用途違いのデータを1つのテーブルに詰め込む
+);
