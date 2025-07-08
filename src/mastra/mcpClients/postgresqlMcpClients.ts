@@ -1,7 +1,7 @@
 import { MCPClient } from '@mastra/mcp'
 
 // MCPClientを設定してサーバーに接続
-export const mcpClient = new MCPClient({
+export const postgresqlMcpClients = new MCPClient({
   servers: {
     postgres: {
       command: 'npx',

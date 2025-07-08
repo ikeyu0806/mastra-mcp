@@ -1,6 +1,6 @@
 import { Agent } from '@mastra/core/agent'
 import { openai } from '@ai-sdk/openai'
-import { mcpClient } from '../mcpClients/mcpClients'
+import { postgresqlMcpClients } from '../mcpClients/postgresqlMcpClients'
 
 export const mcpAgent = new Agent({
   name: 'Agent with Postgresql MCP Tools',
@@ -13,5 +13,5 @@ export const mcpAgent = new Agent({
   ユーザーの質問に基づいて必要な情報を取得してください。
   `,
   model: openai('gpt-4o-mini'),
-  tools: await mcpClient.getTools(),
+  tools: await postgresqlMcpClients.getTools(),
 })
