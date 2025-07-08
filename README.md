@@ -14,5 +14,8 @@ npx ts-node src/scripts/updateAntiPatternCodingEmbedding.ts
 npx ts-node src/scripts/antiPatternCodingQuery.ts
 
 # データベース設計アンチパターンDB更新
- npx ts-node src/scripts/updateAntiPatternTableDesignEmbedding.ts
+npx ts-node src/scripts/updateAntiPatternTableDesignEmbedding.ts
+
+# データベース設計アンチパターンベクトルDBへのクエリ
+npx ts-node src/scripts/antiPatternTableDesignQuery.ts
 ```
