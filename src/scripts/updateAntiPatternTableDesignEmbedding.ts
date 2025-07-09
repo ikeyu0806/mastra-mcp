@@ -374,6 +374,39 @@ SELECT customer_id, name, SUM(amount) FROM orders GROUP BY customer_id;
 -- OK例
 SELECT customer_id, name, SUM(amount) FROM orders GROUP BY customer_id, name;
 
+## ランダムセレクション
+
+概要:
+データをランダムにソートし、その中から1行を取得する方法はパフォーマンスが非常に悪い。
+例えば以下のクエリはデータ量が増えるほど遅くなる。
+
+悪い例:
+SELECT * FROM Bugs ORDER BY RAND() LIMIT 1;
+
+問題点:
+- RAND()で全行にランダム値を生成してソートするため、テーブル全体をスキャンする必要がある。
+- 大量データではクエリ実行時間が増大し、DB負荷が高まる。
+
+改善策:
+ランダムなキーを利用し、特定の順番に依存しない方法でランダムな行を取得する。
+
+例1: ランダムなIDを生成して直接取得（欠番があるとヒットしない可能性あり）
+SELECT b1.*
+FROM Bugs AS b1
+INNER JOIN (
+  SELECT CEIL(RAND() * (SELECT MAX(bug_id) FROM Bugs)) AS rand_id
+) AS b2 ON b1.bug_id = b2.rand_id;
+
+例2: 欠番を考慮し、ランダムID以上の最初の行を取得する方法
+SELECT b1.* 
+FROM Bugs AS b1
+INNER JOIN (
+  SELECT CEIL(RAND() * (SELECT MAX(bug_id) FROM Bugs)) AS bug_id
+) AS b2 ON b1.bug_id >= b2.bug_id
+ORDER BY b1.bug_id LIMIT 1;
+
+これにより、テーブル全体のフルスキャンを避けて効率的にランダムなレコードを取得できる。
+
 ## N+1 クエリ問題
 
 例:
