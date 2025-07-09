@@ -91,6 +91,37 @@ Setter/Getter地獄（ロジックのないデータクラス）
 
 依存性注入なしでの密結合
 
+## 引数が多すぎる
+
+可読性の低下:
+- 関数やメソッドを読むときに、何をしているのかが分かりにくくなる。
+- 呼び出し側でも、どの引数がどの意味を持つのか把握しづらくなる。
+
+保守性の低下:
+- 引数の順番変更、追加・削除が他のコードにも影響を及ぼす。
+- テストやデバッグ時に、全ての引数を準備する必要がある。
+
+再利用性の低下:
+- 特定のコンテキストに依存した関数になりやすく、他の場面で使いにくい。
+
+悪い例:
+function createUser(name: string, age: number, email: string, address: string, phone: string) {
+  // ...
+}
+
+良い例:
+type UserInfo = {
+  name: string;
+  age: number;
+  email: string;
+  address: string;
+  phone: string;
+};
+
+function createUser(user: UserInfo) {
+  // ...
+}
+
 ## その他のアンチパターン
 | アンチパターン     | 内容                                |
 | ----------- | --------------------------------- |

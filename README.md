@@ -4,7 +4,7 @@
 http://localhost:4111/agents
 ```
 
-## スクリプト
+## RAGデータベース登録スクリプト
 
 ```
 d exec -it mastra-mcp bash
