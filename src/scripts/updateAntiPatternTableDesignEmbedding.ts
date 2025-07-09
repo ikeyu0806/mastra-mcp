@@ -35,6 +35,37 @@ CREATE TABLE categories (
 - 経路列挙モデル（path列を使って階層を表現）
 - 閉包テーブル（親子関係をすべて展開して別テーブルに持つ）
 
+## キーレスエントリ（Keyless Entry）
+
+概要:
+外部キー制約を使わず、データ整合性をアプリケーションコード側だけで管理しようとする設計。
+
+問題点:
+- 存在しないIDを参照してもエラーにならない（整合性が崩れる）
+- 親テーブルの削除・更新が関連テーブルに伝わらない
+- 手動で整合性チェックが必要になり、開発・保守のコストが増大
+- バグの原因になりやすい
+
+悪い例:
+CREATE TABLE orders (
+  id INT PRIMARY KEY,
+  user_id INT
+);
+
+良い例:
+CREATE TABLE orders (
+  id INT PRIMARY KEY,
+  user_id INT,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+例外的に外部キーを使えないケース:
+- 異なるデータベースにまたがる場合（マイクロサービスなど）
+- 外部キーの使用により極端なパフォーマンス問題が出るケース（要検証）
+
+推奨:
+- 使える場面では外部キーを明示的に定義し、データベースレベルで整合性を守る
+
 ## EAV（Entity-Attribute-Value）モデル
 
 例:
