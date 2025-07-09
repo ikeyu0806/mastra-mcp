@@ -104,7 +104,32 @@ CREATE TABLE users (
 代替案:
 - contact_info などの別テーブルに切り出す
 
----
+## ポリモーフィック関連（Polymorphic Association）
+
+概要:
+1つの外部キー列（target_id）で複数の異なるテーブルと関連させる設計。例: comments テーブルが posts や photos に紐づく。
+
+問題点:
+- 外部キー制約を貼れず、整合性が保証されない
+- target_type と target_id の組み合わせが誤っていてもエラーにならない
+- JOIN や検索クエリが複雑・非効率
+- データベースレベルでの構造化が崩れる
+
+悪い例:
+CREATE TABLE comments (
+  id INT PRIMARY KEY,
+  comment_text TEXT,
+  target_type VARCHAR(50),
+  target_id INT
+);
+
+改善案:
+1. 関連先ごとに別テーブル（例: post_comments, photo_comments）
+2. コメント本体と関連情報を分けた中間テーブル設計
+3. ORMで使う場合も、DBレベルのリスクを理解して使うこと
+
+推奨:
+明示的な外部キー制約とスキーマで整合性を担保する設計にする。
 
 ## メタデータをデータとして扱う
 
