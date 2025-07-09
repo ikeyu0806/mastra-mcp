@@ -1,0 +1,10 @@
+CREATE TABLE Orders (
+  order_id INT PRIMARY KEY,
+  customer_name VARCHAR(255),
+  customer_address VARCHAR(500),
+  product_names TEXT,      -- カンマ区切りの複数製品（NG）
+  quantities TEXT,         -- 製品ごとの数量もカンマ区切り（NG）
+  total_price DECIMAL(10, 2),
+  shipping_method VARCHAR(100),
+  shipping_status VARCHAR(50)
+);
