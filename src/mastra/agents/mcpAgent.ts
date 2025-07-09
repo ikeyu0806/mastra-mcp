@@ -12,6 +12,6 @@ export const mcpAgent = new Agent({
   mcpClientを使用して、PostgreSQLデータベースに接続し、
   ユーザーの質問に基づいて必要な情報を取得してください。
   `,
-  model: openai('gpt-4o-mini'),
+  model: openai('gpt-4o'),
   tools: await postgresqlMcpClients.getTools(),
 })
