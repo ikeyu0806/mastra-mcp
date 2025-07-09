@@ -122,6 +122,24 @@ function createUser(user: UserInfo) {
   // ...
 }
 
+## 技術駆動命名
+
+概要:
+変数や関数名が「data」「flg」「res」「obj」など、技術的な汎用語や省略語になっており、意味や意図がコードから読み取れない状態。
+
+問題点:
+- 変数の役割や中身が不明確
+- ドメイン知識が伝わらず、可読性・保守性が低下
+- 命名の一貫性がなく、初見の人には理解しづらい
+
+悪い例:
+const data = fetchUser();
+const flg = isValidUser(user);
+
+良い例:
+const userProfile = fetchUser();
+const isUserEligibleForPromotion = isValidUser(user);
+
 ## その他のアンチパターン
 | アンチパターン     | 内容                                |
 | ----------- | --------------------------------- |
