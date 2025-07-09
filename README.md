@@ -24,8 +24,32 @@ docker compose run --rm mastra npx ts-node src/scripts/antiPatternTableDesignQue
 
 ## Postgresql
 
+ベクトルデータベース接続
+```
+psql "postgresql://user:password@localhost:5432/vectordb"
+```
+
 データベース一覧表示
 
 ```
 \l
+```
+
+データベース選択
+
+```
+\c vectordb
+```
+
+テーブル一覧
+
+```
+\dt
+```
+
+テーブル定義
+
+```
+\d coding_antipattern_embeddings
+\d db_design_antipattern_embeddings
 ```
