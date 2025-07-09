@@ -349,6 +349,31 @@ UPDATE users SET status = NULL WHERE id = 1;
 -- OK（NULLは不明の意味として使う）
 SELECT * FROM users WHERE status IS NULL;
 
+## アンビギュアスグループ（曖昧なグループ）
+
+概要:
+GROUP BY句に適切なカラムを指定せず、曖昧なグループ化を行うことで、
+集計結果が不正確になるアンチパターン。SQL標準では、
+GROUP BYに含まれない非集約カラムのSELECTは基本的に禁止されているが、
+多くのDBで暗黙的に許容されている場合もあり、不定な結果を生む。
+
+問題点:
+- 不正確な集計結果
+- SQLの可読性・保守性の低下
+- DB依存で結果が変わる移植性の問題
+
+改善策:
+- GROUP BYには非集約カラムをすべて含める
+- 集約関数を使って集計対象を明示する
+- 必要ならサブクエリやウィンドウ関数を活用して処理を明確化
+
+例:
+-- NG例
+SELECT customer_id, name, SUM(amount) FROM orders GROUP BY customer_id;
+
+-- OK例
+SELECT customer_id, name, SUM(amount) FROM orders GROUP BY customer_id, name;
+
 ## N+1 クエリ問題
 
 例:
