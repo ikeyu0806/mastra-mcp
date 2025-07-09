@@ -13,7 +13,7 @@ d exec -it mastra-mcp bash
 docker compose run --rm mastra npx ts-node src/scripts/updateAntiPatternCodingEmbedding.ts
 
 # データベース設計アンチパターンDB更新
-docker compose run --rm mastra npx ts-node src/scripts/updateAntiPatternTableDesignEmbedding.ts
+docker compose run --rm mastra npx ts-node src/scripts/updateDatabaseAntiPatternEmbedding.ts
 
 # プログラミングアンチパターンベクトルDBへのクエリ
 docker compose run --rm  mastranpx ts-node src/scripts/antiPatternCodingQuery.ts
