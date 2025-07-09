@@ -1,0 +1,19 @@
+public class UserService {
+    public void createUser(String name, String email, int age, String address, 
+                          String phoneNumber, String occupation) {
+        // バリデーション
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name is required");
+        }
+        if (email == null || !email.contains("@")) {
+            throw new IllegalArgumentException("Invalid email");
+        }
+        if (age < 0) {
+            throw new IllegalArgumentException("Invalid age");
+        }
+        
+        // ユーザー作成の処理
+        User user = new User(name, email, age, address, phoneNumber, occupation);
+        // ...
+    }
+}
