@@ -12,7 +12,30 @@ SQLアンチパターン（SQL Anti-patterns）とは、一見正しく動作す
 
 ---
 
-1. EAV（Entity-Attribute-Value）モデル
+## ナイーブツリー（Naive Tree）
+
+概要:
+親子関係を parent_id カラム1つで表現するツリー構造。単純だが実運用に不向きな構造。
+
+問題点:
+- 子孫や祖先を取得するには再帰的なSQLが必要（パフォーマンス・可読性が悪い）
+- ノードの移動・挿入・削除時に再帰的更新が必要
+- ツリーが深くなると操作が困難
+- DBによって再帰SQLの対応状況が異なる
+
+悪い例:
+CREATE TABLE categories (
+  id INT PRIMARY KEY,
+  name VARCHAR(100),
+  parent_id INT NULL
+);
+
+改善案:
+- ネストセットモデル（左・右の範囲で木を表現）
+- 経路列挙モデル（path列を使って階層を表現）
+- 閉包テーブル（親子関係をすべて展開して別テーブルに持つ）
+
+## EAV（Entity-Attribute-Value）モデル
 
 例:
 product_properties テーブルで属性を縦持ち
@@ -32,7 +55,7 @@ product_id | attribute_name | value
 
 ---
 
-2. NULLの過剰使用
+## NULLの過剰使用
 
 例:
 CREATE TABLE users (
@@ -52,7 +75,7 @@ CREATE TABLE users (
 
 ---
 
-3. メタデータをデータとして扱う
+## メタデータをデータとして扱う
 
 例:
 SELECT * FROM ?; など動的にテーブル名やカラム名を指定
@@ -66,7 +89,7 @@ SELECT * FROM ?; など動的にテーブル名やカラム名を指定
 
 ---
 
-4. 冗長なデータの繰り返し（非正規化しすぎ）
+## 冗長なデータの繰り返し（非正規化しすぎ）
 
 例:
 orders テーブルに user_name も格納
@@ -80,7 +103,7 @@ orders テーブルに user_name も格納
 
 ---
 
-5. なんでも TEXT に保存
+## なんでも TEXT に保存
 
 例:
 address TEXT で "Tokyo,Shibuya,150-0001" のような複合値を保存
@@ -94,7 +117,7 @@ address TEXT で "Tokyo,Shibuya,150-0001" のような複合値を保存
 
 ---
 
-6. N+1 クエリ問題
+## N+1 クエリ問題
 
 例:
 for (user of users) {
@@ -106,6 +129,8 @@ for (user of users) {
 
 代替案:
 - JOINや WHERE user_id IN (...) でまとめて取得
+
+
 
 ---
 
