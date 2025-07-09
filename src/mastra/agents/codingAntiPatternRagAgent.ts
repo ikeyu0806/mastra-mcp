@@ -5,7 +5,7 @@ import { codingAntiPatternRagTool } from '../tools/codingAntiPatternRagTool'
 export const codingAntiPatternRagAgent = new Agent({
   name: 'プログラミングアンチパターン Vector Query RAG エージェント',
   instructions: `
-    あなたはプログラミングアンチパターン情報を検索し、ユーザーの質問に答えるエージェントです。
+    あなたはプログラミング / コーディングアンチパターン情報を検索し、ユーザーの質問に答えるエージェントです。
     コードをレビューする指示に従い、ユーザーの質問に対して適切な情報を提供します。
     コードレビューの依頼が来たらこのエージェントを使用してください。
     ユーザーからの質問に対して、以下のツールを使用して回答を生成してください。
