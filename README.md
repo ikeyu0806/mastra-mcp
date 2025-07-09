@@ -10,7 +10,7 @@ http://localhost:4111/agents
 d exec -it mastra-mcp bash
 
 # プログラミングアンチパターンベクトルDB更新
-docker compose run --rm mastra npx ts-node src/scripts/updateAntiPatternCodingEmbedding.ts
+docker compose run --rm mastra npx ts-node src/scripts/updateCodingAntiPatternEmbedding.ts
 
 # データベース設計アンチパターンDB更新
 docker compose run --rm mastra npx ts-node src/scripts/updateDatabaseAntiPatternEmbedding.ts
