@@ -140,6 +140,29 @@ const flg = isValidUser(user);
 const userProfile = fetchUser();
 const isUserEligibleForPromotion = isValidUser(user);
 
+## 連番命名
+
+概要:
+変数や関数名に連番（xxx1, xxx2, xxx3...）を付けて命名することで、意味や構造が失われた状態。
+
+問題点:
+- 中身の違いが名前に表れておらず、意図が読み取れない
+- データの数が増えるとメンテナンスが困難になる
+- 配列やオブジェクトで扱うべきデータを、スケーラブルでない形で保持してしまう
+
+悪い例:
+const user1 = "Alice";
+const user2 = "Bob";
+const user3 = "Charlie";
+
+良い例（配列で管理）:
+const users = ["Alice", "Bob", "Charlie"];
+
+良い例（意味のある名前に）:
+const adminUser = "Alice";
+const guestUser = "Bob";
+const trialUser = "Charlie";
+
 ## その他のアンチパターン
 | アンチパターン     | 内容                                |
 | ----------- | --------------------------------- |
