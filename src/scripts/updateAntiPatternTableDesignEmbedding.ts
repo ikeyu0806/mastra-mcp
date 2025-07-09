@@ -253,6 +253,43 @@ CREATE TABLE payments (
 推奨:
 金額や割合、統計など**誤差が致命的になる場面**では、必ず固定精度（NUMERIC / DECIMAL）型を使い、浮動小数点（FLOAT / DOUBLE）は避ける。
 
+## サーティワンフレーバー（ENUM 過多）
+
+概要:
+固定値（ステータスや種類など）をすべて列定義（ENUM）で定義しようとするアンチパターン。
+アイスクリームの「31のフレーバー」のように、選択肢が多すぎて柔軟性を失う。
+
+問題点:
+- ステータス追加や変更にスキーマ変更（ALTER TABLE）が必要
+- 表示順・説明・多言語対応が困難
+- アプリロジックとの密結合でメンテが煩雑化
+
+悪い例:
+CREATE TABLE Bugs (
+  id INT,
+  status ENUM('New', 'In Progress', 'Resolved', ..., 'Custom31')
+);
+
+改善案:
+1. BugStatus などの参照テーブルを作り、外部キーで管理する
+2. 表示順、カテゴリ、多言語対応などの情報をテーブルで管理可能にする
+3. ENUM は選択肢が明確・固定（例: 左/右, オン/オフ）なときに限定して使用
+
+良い例:
+CREATE TABLE BugStatus (
+  id INT PRIMARY KEY,
+  name TEXT,
+  display_order INT
+);
+
+CREATE TABLE Bugs (
+  id INT,
+  status_id INT REFERENCES BugStatus(id)
+);
+
+推奨:
+選択肢が業務に応じて変化する可能性がある場合は、ENUM ではなく参照テーブルでの管理を基本とする。
+
 ## なんでも TEXT に保存
 
 例:
