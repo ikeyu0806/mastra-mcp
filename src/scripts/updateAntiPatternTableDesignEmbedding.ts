@@ -212,6 +212,47 @@ Bugs_2010
 推奨:
 1つの正規化されたテーブル + RDBMS のパーティション機能で柔軟性と性能を両立。
 
+## ラウンディングエラー（Rounding Error）
+
+概要:
+浮動小数点数（FLOAT、DOUBLE）を使用すると、数値の内部表現に誤差が生じることがある。これは、コンピュータが2進数で数値を処理するため、有限の桁数では正確な表現ができない値が存在するため。
+
+例:
+0.1 + 0.2 === 0.3 // false
+→ 結果は 0.30000000000000004 になることがある。
+
+原因:
+- 浮動小数点（FLOAT, DOUBLE）は近似値でしか数値を保持できない
+- 1/3 や 0.1 のような値は 2 進数では正確に表現できず、循環小数として誤差が出る
+- 誤差が累積して大きなズレになることもある
+
+悪い例:
+CREATE TABLE payments (
+  amount FLOAT
+);
+
+-- 金額を扱うには不適切。誤差により計算ミスが発生する可能性。
+
+改善案:
+1. 金額や精度が重要な数値は、FLOAT / DOUBLE を使わず、NUMERIC や DECIMAL を使う。
+
+良い例:
+CREATE TABLE payments (
+  amount NUMERIC(10, 2)  -- 小数点以下2桁まで、正確に表現
+);
+
+2. アプリケーション側でも high-precision な型やライブラリを使う。
+  - JavaScript: decimal.js / Big.js
+  - Python: decimal.Decimal
+  - Java: BigDecimal
+  - C#: decimal
+
+3. 計算結果を比較する場合は、誤差を考慮した比較関数を使う。
+  - 例: Math.abs(a - b) < ε
+
+推奨:
+金額や割合、統計など**誤差が致命的になる場面**では、必ず固定精度（NUMERIC / DECIMAL）型を使い、浮動小数点（FLOAT / DOUBLE）は避ける。
+
 ## なんでも TEXT に保存
 
 例:
