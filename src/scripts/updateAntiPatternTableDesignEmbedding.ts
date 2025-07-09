@@ -571,6 +571,35 @@ preparedStatement.execute([username]);
 
 これにより、システム全体の品質と信頼性を向上させることができる。
 
+## マジックビーンズ（魔法の豆）
+
+概要:
+モデル（model）がActiveRecordそのものとして実装されている場合、
+ドメインロジックとデータアクセスロジックが密結合してしまい、設計の柔軟性と表現力が失われる。
+
+問題点:
+- ActiveRecordはデータベーススキーマに強く依存するため、柔軟性が低い
+- CRUD（Create, Read, Update, Delete）操作が無防備に公開されてしまう
+- ビジネスロジックがモデルに書けなくなり、ドメインモデル貧血症（貧弱なモデル）になる
+- テストや保守が困難になる
+
+改善策:
+- モデルがActiveRecordを直接継承するのではなく、ActiveRecordを「所有」する（Composition）
+- ビジネスロジックはドメインモデルに持たせ、データアクセスはリポジトリやデータマッパーに委譲する
+- ドメイン中心の設計（DDD）を意識する
+
+例（改善イメージ）:
+class User {
+  constructor(private record: UserRecord) {}
+
+  changeEmail(newEmail: string) {
+    // ビジネスルールに基づいた変更
+    this.record.email = newEmail;
+  }
+}
+
+これにより、ドメインロジックを保ったまま柔軟な設計が可能になる。
+
 ## N+1 クエリ問題
 
 例:
